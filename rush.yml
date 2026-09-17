@@ -1,0 +1,28 @@
+# For a detailed info on this file and supported fields, check out the below link:
+# https://github.com/ShreyashSaitwal/rush-cli/wiki/Metadata-File
+
+---
+name: SmartShareX
+description: >
+  Universal Android Share Target extension. Lets your app appear in the
+  system Sharesheet and receive text, URLs, single/multiple files, and
+  media shared from other apps — with a native bottom-sheet picker that
+  opens instantly, without requiring your main Screen to launch first.
+
+version:
+  number: auto
+  name: '1.0'
+
+authors:
+  - zuhaib
+
+build:
+  release:
+    optimize: true
+
+  desugar:
+    enable: false
+    desugar_deps: false
+
+assets:
+  icon: icon.png

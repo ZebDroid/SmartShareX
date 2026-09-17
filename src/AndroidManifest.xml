@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.zebdroid.smartsharex">
+  <application>
+
+    <!--
+      ShareReceiverActivity: dedicated entry point for the Android Sharesheet.
+      - Does NOT depend on the app's MainActivity/Screen1 being alive.
+      - exported="true" is REQUIRED here (not a security hole): this activity
+        has intent-filters, so on Android 12+ the manifest merger/build will
+        fail without an explicit exported value.
+      - launchMode="singleTask" + the onNewIntent handling in the Java class
+        means a second share while the sheet is already open reuses the same
+        instance instead of stacking duplicate activities.
+      - theme is translucent so the underlying app (Instagram/Chrome/etc.)
+        stays visible behind our bottom sheet, like SnapTube's picker.
+      - excludeFromRecents avoids a stray "blank" task entry in Recents if the
+        user backgrounds mid-share.
+    -->
+    <activity
+        android:name="com.zebdroid.smartsharex.ShareReceiverActivity"
+        android:exported="true"
+        android:launchMode="singleTask"
+        android:excludeFromRecents="true"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        android:configChanges="orientation|screenSize|keyboardHidden">
+
+      <!-- Single item: plain text / URL -->
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/plain" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/html" />
+      </intent-filter>
+
+      <!-- Single item: media / documents -->
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="image/*" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="video/*" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="audio/*" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="application/pdf" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="application/*" />
+      </intent-filter>
+
+      <!-- Catch-all: any other single-item MIME type not covered above
+           (text/csv, text/x-vcard, custom app export types, etc.). Without
+           this, "universal" share target only holds for the types listed
+           explicitly, and arbitrary single-file shares silently don't
+           offer this app in the Sharesheet at all. -->
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/*" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="*/*" />
+      </intent-filter>
+
+      <!-- Multiple items -->
+      <intent-filter>
+        <action android:name="android.intent.action.SEND_MULTIPLE" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="image/*" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND_MULTIPLE" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="video/*" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND_MULTIPLE" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="*/*" />
+      </intent-filter>
+
+    </activity>
+
+  </application>
+</manifest>
