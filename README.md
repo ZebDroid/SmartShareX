@@ -26,6 +26,14 @@ This project uses Rush for extension development.
 
 ## Installation
 
+## Latest Release
+
+[Download SmartShareX v1.0.0](../../releases/tag/v1.0.0)
+
+The release includes the compiled extension file:
+
+`com.zebdroid.smartsharex.aix`
+
 Download the latest `.aix` file from the Releases section and import it into your Niotron/App Inventor project.
 
 ## License
